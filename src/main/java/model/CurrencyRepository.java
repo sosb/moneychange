@@ -15,13 +15,10 @@ public class CurrencyRepository {
     @PersistenceContext(unitName = "moneyChange")
     private EntityManager em;
 
-
-
     public List<Denomination> getAllDenomination(Currency currency){
-        TypedQuery<Denomination> query = em.createQuery(
-                "SELECT d " +
-                        "FROM Denomination d " +
-                        "WHERE d.currency = " + currency.getName() + " AND d.quantity <> 0", Denomination.class);
+        TypedQuery<Denomination> query = em.createQuery("SELECT d " +
+                "FROM Denomination d " +
+                "WHERE d.currency = " + currency.ordinal() + " AND d.quantity <> 0", Denomination.class);
         return query.getResultList();
     }
 
@@ -30,7 +27,7 @@ public class CurrencyRepository {
         em.createQuery(
                 "UPDATE Denomination as d " +
                         "SET d.quantity = d.quantity - 1 " +
-                        "WHERE d.denominationValue = " + denomination +" AND d.currency = " + currency.getName(), Denomination.class);
+                        "WHERE d.denominationValue = " + denomination +" AND d.currency = " + currency.ordinal());
     }
 
 }

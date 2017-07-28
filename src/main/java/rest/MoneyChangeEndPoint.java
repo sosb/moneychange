@@ -1,6 +1,7 @@
 package rest;
 
 
+import moneychange.Currency;
 import moneychange.CurrencyService;
 
 import javax.inject.Inject;
@@ -22,7 +23,7 @@ public class MoneyChangeEndPoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getThis(){
 
-        return Response.ok(currencyService.changeCurrency(60_000)).build();
+        return Response.ok(currencyService.changeCurrency(Currency.HUF_AFTER2008, 35_000)).build();
 
     }
 

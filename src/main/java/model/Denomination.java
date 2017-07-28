@@ -20,9 +20,6 @@ public class Denomination {
     @Column(name = "quantity")
     private Long quantity;
 
-    @Column(name = "denomination_amount")
-    private Long denominationAmount;
-
     public Long getId() {
         return id;
     }
@@ -53,13 +50,5 @@ public class Denomination {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
-    }
-
-    public Long getDenominationAmount() {
-        return denominationAmount;
-    }
-
-    public void setDenominationAmount(Long denominationAmount) {
-        this.denominationAmount = denominationAmount;
     }
 }
