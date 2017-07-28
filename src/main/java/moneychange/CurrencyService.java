@@ -34,6 +34,7 @@ public class CurrencyService {
                 } else {
                     changes.replace(key, counter, ++counter);
                 }
+                available.replace(key, value, --value);
                 cr.updateDenominationQuantity(key, currency);
                 amount = amount - key;
             }
