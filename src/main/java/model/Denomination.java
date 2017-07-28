@@ -1,6 +1,5 @@
 package model;
 
-import com.sun.beans.editors.IntegerEditor;
 import moneychange.Currency;
 
 import javax.persistence.*;
@@ -23,7 +22,6 @@ public class Denomination {
 
     @Column(name = "denomination_amount")
     private Long denominationAmount;
-
 
     public Long getId() {
         return id;
