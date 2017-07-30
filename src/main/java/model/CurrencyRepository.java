@@ -1,6 +1,6 @@
 package model;
 
-import moneychange.Currency;
+import service.Currency;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +28,11 @@ public class CurrencyRepository {
                 "UPDATE Denomination as d " +
                         "SET d.quantity = d.quantity - 1 " +
                         "WHERE d.denominationValue = " + denomination +" AND d.currency = " + currency.ordinal());
+    }
+
+    public List<Denomination> getActualStateOfData(){
+        TypedQuery<Denomination> query = em.createQuery("SELECT d FROM Denomination d ", Denomination.class);
+        return query.getResultList();
     }
 
 }

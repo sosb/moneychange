@@ -1,10 +1,10 @@
-package moneychange;
+package service;
 
 import model.CurrencyRepository;
 import model.Denomination;
 
 import javax.inject.Inject;
-import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -46,6 +46,10 @@ public class CurrencyService {
     private Map<Integer, Long> mappingDenominationQuantities(Currency currency){
         return cr.getAllDenomination(currency).stream()
                 .collect(Collectors.toMap(Denomination::getDenominationValue, Denomination::getQuantity));
+    }
+
+    public List<Denomination> getActualStateOfData(){
+        return cr.getActualStateOfData();
     }
 
 }

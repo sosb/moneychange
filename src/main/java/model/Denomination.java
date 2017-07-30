@@ -1,6 +1,6 @@
 package model;
 
-import moneychange.Currency;
+import service.Currency;
 
 import javax.persistence.*;
 

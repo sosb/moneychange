@@ -1,8 +1,8 @@
 package rest;
 
 
-import moneychange.Currency;
-import moneychange.CurrencyService;
+import service.Currency;
+import service.CurrencyService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/change")
 public class MoneyChangeEndPoint{
+
 
     private CurrencyService currencyService;
 

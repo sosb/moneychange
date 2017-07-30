@@ -1,8 +1,4 @@
-package moneychange;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+package service;
 
 
 public enum Currency {

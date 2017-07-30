@@ -29,7 +29,7 @@
     </dependencies>
 
     <build>
-        <finalName>moneychange</finalName>
+        <finalName>service</finalName>
 
         <plugins>
             <plugin>
