@@ -1,11 +1,12 @@
 package service;
 
 
+
 public enum Currency {
 
-    PESO("peso"),
-    HUF_BEFORE2008("huf_before2008"),
-    HUF_AFTER2008("huf_after2008");
+    PESO("PESO"),
+    HUF_BEFORE2008("HUF_BEFORE2008"),
+    HUF_AFTER2008("HUF_AFTER2008");
 
     private String name;
 

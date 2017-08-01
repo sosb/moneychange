@@ -4,10 +4,14 @@ import model.CurrencyRepository;
 import model.Denomination;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+
+import static javax.transaction.Transactional.TxType.REQUIRED;
 
 
 public class CurrencyService {
@@ -15,11 +19,11 @@ public class CurrencyService {
     @Inject
     private CurrencyRepository cr;
 
+    @Transactional(REQUIRED)
     public Map<Integer, Long> changeCurrency(Currency currency, long amount) {
 
         Map<Integer, Long> changes = new TreeMap<>();
-        Map<Integer, Long> available = mappingDenominationQuantities(currency);
-
+        Map<Integer, Long> available = sortByKeyDesc(mappingDenominationQuantities(currency));
 
         for (Map.Entry<Integer, Long> entry : available.entrySet()) {
 
@@ -39,6 +43,11 @@ public class CurrencyService {
                 amount = amount - key;
             }
         }
+
+        if(amount != 0){
+
+            changes.clear();
+        }
         return changes;
     }
 
@@ -48,8 +57,14 @@ public class CurrencyService {
                 .collect(Collectors.toMap(Denomination::getDenominationValue, Denomination::getQuantity));
     }
 
-    public List<Denomination> getActualStateOfData(){
-        return cr.getActualStateOfData();
+    private Map<Integer, Long> sortByKeyDesc(Map<Integer, Long> map){
+        Map<Integer, Long> sortedMap = new TreeMap<>(Comparator.reverseOrder());
+        sortedMap.putAll(map);
+        return sortedMap;
+    }
+
+    public List<Denomination> getActualStateOfData(Currency currency){
+        return cr.getActualStateOfData(currency);
     }
 
 }

@@ -4,44 +4,113 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-
+        <link href="resources/css/bootstrap.css" rel="stylesheet"/>
+        <link href="resources/style.css" rel="stylesheet"/>
     </h:head>
 
     <h:body>
-        <h2>Change</h2>
-        <h:form method="post" action="moneychange/api/change">
-            <div class="middle-box text-center loginscreen animated fadeInDown">
-                <h:outputText  value="amount"/>
-                <h:inputText type="text" name="amount"/>
-                <h:outputLabel value="Select the currency"/>
-                <h:selectOneMenu id="currency">
-                    <f:selectItem itemValue = "HUF_BEFORE2008" itemLabel = "huf_before2008" />
-                    <f:selectItem itemValue = "HUF_AFTER2008" itemLabel = "huf_after2008" />
-                    <f:selectItem itemValue = "PESO" itemLabel = "peso" />
-                </h:selectOneMenu>
-                <h:commandButton value="OK" type="submit"/>
-            </div>
-        </h:form>
-        <h:dataTable>
 
-            <h:column>
-                <f:facet name="header">Order No</f:facet>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Denomination</f:facet>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Quantity</f:facet>
-            </h:column>
+        <div id="change-panel" class="col-lg-6">
+            <h:form styleClass="form-horizontal">
+                <h2>Change</h2>
 
-        </h:dataTable>
-        <h:commandButton value="Kassza állapota"/>
+                <div class="form-group col-md-6">
+                    <h:outputLabel  styleClass="col-md-5" for="amount" value="Amount"/>
+                    <h:inputText styleClass="col-md-2 form-control"
+                                 id="amount"
+                                 converterMessage="Must be digit!"
+                                 requiredMessage="Please enter the amount"
+                                 value="#{moneyChangeController.amount}">
+                        <f:validateRequired/>
+                    </h:inputText>
+                </div>
+
+                <div id="take-left-margin" class="form-group col-md-6">
+                    <h:outputLabel  styleClass="col-md-5" value="Select the currency"/>
+                    <h:selectOneMenu styleClass="col-md-2 form-control" value="#{moneyChangeController.currency}">
+                        <f:selectItems var="me" value="#{moneyChangeController.currencies}" itemValue="#{me.name}"/>
+                    </h:selectOneMenu>
+                </div>
+
+                <div class="form-group col-md-offset-2">
+                    <div class="col-sm-12">
+                        <h:commandButton value="Change"
+                                         actionListener="#{moneyChangeController.change}"
+                                         styleClass="btn btn-primary">
+                        </h:commandButton>
+                    </div>
+                </div>
+                <h:message id="warning" for="amount"/>
+            </h:form>
+
+
+            <h:dataTable value="#{moneyChangeController.result.keySet().toArray()}"
+                         var="money"
+                         rendered="#{not empty moneyChangeController.result}"
+                         styleClass="table table-bordered">
+                <h:column>
+                    <f:facet name="header">Denomination value</f:facet>
+                    #{money}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Number of valute</f:facet>
+                    #{moneyChangeController.result.get(money)}
+                </h:column>
+            </h:dataTable>
+            <h:outputText id="cantChange"
+                          rendered="#{moneyChangeController.result ne null and empty moneyChangeController.result}"
+                          value="This amount can not be changed!"/>
+        </div>
+
+
+        <div id="info-panel" class="col-lg-6">
+            <h2>State of database</h2>
+
+            <h:form styleClass="form-horizontal">
+                <div class="form-group col-md-6">
+                    <h:outputLabel  styleClass="col-md-5" value="Select the currency"/>
+                    <h:selectOneMenu styleClass="col-md-2 form-control" value="#{moneyChangeController.currency}">
+                        <f:selectItems var="me" value="#{moneyChangeController.currencies}" itemValue="#{me.name}"/>
+                    </h:selectOneMenu>
+                </div>
+
+                <div class="form-group col-md-offset-2">
+                    <div class="col-sm-12">
+                        <h:commandButton value="Get stock info"
+                                         actionListener="#{moneyChangeController.actualStateOfData}"
+                                         styleClass="btn btn-primary">
+                        </h:commandButton>
+                    </div>
+                </div>
+            </h:form>
+
+            <h:dataTable value="#{moneyChangeController.data}" var="data"
+                         rendered="#{not empty moneyChangeController.data}"
+                         styleClass="table table-bordered">
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                    #{data.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Denomination value</f:facet>
+                    #{data.denominationValue}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Quantity</f:facet>
+                    #{data.quantity}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Currency</f:facet>
+                    #{data.currency}
+                </h:column>
+            </h:dataTable>
+        </div>
 
     </h:body>
-
-
 
 </html>
