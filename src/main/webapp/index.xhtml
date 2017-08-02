@@ -14,24 +14,23 @@
     </h:head>
 
     <h:body>
-
         <div id="change-panel" class="col-lg-6">
             <h:form styleClass="form-horizontal">
-                <h2>Change</h2>
+                <h2>#{msg['change.title']}</h2>
 
                 <div class="form-group col-md-6">
-                    <h:outputLabel  styleClass="col-md-5" for="amount" value="Amount"/>
+                    <h:outputLabel  styleClass="col-md-5" for="amount" value="#{msg['input.label']}"/>
                     <h:inputText styleClass="col-md-2 form-control"
                                  id="amount"
-                                 converterMessage="Must be digit!"
-                                 requiredMessage="Please enter the amount"
+                                 converterMessage="#{msg['input.convert']}"
+                                 requiredMessage="#{msg['input.required']}"
                                  value="#{moneyChangeController.amount}">
                         <f:validateRequired/>
                     </h:inputText>
                 </div>
 
                 <div id="take-left-margin" class="form-group col-md-6">
-                    <h:outputLabel  styleClass="col-md-5" value="Select the currency"/>
+                    <h:outputLabel  styleClass="col-md-5" value="#{msg['select.label']}"/>
                     <h:selectOneMenu styleClass="col-md-2 form-control" value="#{moneyChangeController.currency}">
                         <f:selectItems var="me" value="#{moneyChangeController.currencies}" itemValue="#{me.name}"/>
                     </h:selectOneMenu>
@@ -39,7 +38,7 @@
 
                 <div class="form-group col-md-offset-2">
                     <div class="col-sm-12">
-                        <h:commandButton value="Change"
+                        <h:commandButton value="#{msg['change.title']}"
                                          actionListener="#{moneyChangeController.change}"
                                          styleClass="btn btn-primary">
                         </h:commandButton>
@@ -54,26 +53,26 @@
                          rendered="#{not empty moneyChangeController.result}"
                          styleClass="table table-bordered">
                 <h:column>
-                    <f:facet name="header">Denomination value</f:facet>
+                    <f:facet name="header">#{msg['change.table.denomination']}</f:facet>
                     #{money}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Number of valute</f:facet>
+                    <f:facet name="header">#{msg['change.table.valute']}</f:facet>
                     #{moneyChangeController.result.get(money)}
                 </h:column>
             </h:dataTable>
             <h:outputText id="cantChange"
                           rendered="#{moneyChangeController.result ne null and empty moneyChangeController.result}"
-                          value="This amount can not be changed!"/>
+                          value="#{msg['change.error']}"/>
         </div>
 
 
         <div id="info-panel" class="col-lg-6">
-            <h2>State of database</h2>
+            <h2>#{msg['info.header']}</h2>
 
             <h:form styleClass="form-horizontal">
                 <div class="form-group col-md-6">
-                    <h:outputLabel  styleClass="col-md-5" value="Select the currency"/>
+                    <h:outputLabel  styleClass="col-md-5" value="#{msg['select.label']}"/>
                     <h:selectOneMenu styleClass="col-md-2 form-control" value="#{moneyChangeController.currency}">
                         <f:selectItems var="me" value="#{moneyChangeController.currencies}" itemValue="#{me.name}"/>
                     </h:selectOneMenu>
@@ -81,7 +80,7 @@
 
                 <div class="form-group col-md-offset-2">
                     <div class="col-sm-12">
-                        <h:commandButton value="Get stock info"
+                        <h:commandButton value="#{msg['info.button']}"
                                          actionListener="#{moneyChangeController.actualStateOfData}"
                                          styleClass="btn btn-primary">
                         </h:commandButton>
@@ -93,19 +92,19 @@
                          rendered="#{not empty moneyChangeController.data}"
                          styleClass="table table-bordered">
                 <h:column>
-                    <f:facet name="header">Id</f:facet>
+                    <f:facet name="header">#{msg['info.table.id']}</f:facet>
                     #{data.id}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Denomination value</f:facet>
+                    <f:facet name="header">#{msg['info.table.denomination']}</f:facet>
                     #{data.denominationValue}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Quantity</f:facet>
+                    <f:facet name="header">#{msg['info.table.quantity']}</f:facet>
                     #{data.quantity}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Currency</f:facet>
+                    <f:facet name="header">#{msg['info.table.currency']}</f:facet>
                     #{data.currency}
                 </h:column>
             </h:dataTable>
