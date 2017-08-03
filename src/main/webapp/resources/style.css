@@ -13,11 +13,8 @@ html, body{
 }
 
 #change-panel{
-    border-right: 1px solid black;
-}
-
-#info-panel{
-
+    border-right: 1px solid lightgray;
+    background: url("left.jpg") repeat-y;
 }
 
 .container {
