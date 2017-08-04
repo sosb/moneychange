@@ -1,5 +1,6 @@
 package rest;
 
+import model.Denomination;
 import service.Currency;
 import service.CurrencyService;
 
@@ -7,6 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Map;
 
 @Path("/change")
@@ -18,12 +20,16 @@ public class ChangeEndPoint {
     @GET
     @Path("{currency}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStockInfo(@PathParam("currency") int currency){
-        Currency selectedCurrency = Currency.values()[currency];
+    public Response getStockInfo(@PathParam("currency") int ordinalOfTheCurrency){
+        Currency selectedCurrency = Currency.values()[ordinalOfTheCurrency];
         if(selectedCurrency == null){
             return Response.status(500).build();
         }
-        return Response.ok(cs.getActualStateOfData(selectedCurrency)).build();
+        List<Denomination> stockInfo = cs.getActualStateOfData(selectedCurrency);
+        if(stockInfo == null || stockInfo.size() == 0){
+            return Response.status(500).build();
+        }
+        return Response.ok(stockInfo).build();
     }
 
     @POST
