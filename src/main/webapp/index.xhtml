@@ -15,13 +15,14 @@
 
     <h:body>
         <div id="change-panel" class="col-lg-6 container">
-            <h:form>
+            <form method="POST" action="http://localhost:8080/service/rest/change/money">
                 <h2>#{msg['change.title']}</h2>
 
                 <div class="col-sm-6">
                     <h:outputLabel  for="amount" value="#{msg['input.label']}"/>
                     <h:inputText styleClass="col-md-2 form-control"
                                  id="amount"
+                                 name="amount"
                                  converterMessage="#{msg['input.convert']}"
                                  requiredMessage="#{msg['input.required']}"
                                  value="#{moneyChangeController.amount}">
@@ -31,7 +32,7 @@
 
                 <div class="col-sm-6">
                     <h:outputLabel  value="#{msg['select.label']}"/>
-                    <h:selectOneMenu styleClass="col-md-2 form-control" value="#{moneyChangeController.currency}">
+                    <h:selectOneMenu id="currency" styleClass="col-md-2 form-control" value="#{moneyChangeController.currency}">
                         <f:selectItems var="me" value="#{moneyChangeController.currencies}" itemValue="#{me.name}"/>
                     </h:selectOneMenu>
                 </div>
@@ -39,7 +40,7 @@
 
                 <div class="col-sm-12">
                     <h:commandButton value="#{msg['change.title']}"
-                                     actionListener="#{moneyChangeController.change}"
+                                     type="submit"
                                      styleClass="btn btn-primary button">
                     </h:commandButton>
                 </div>
@@ -51,7 +52,7 @@
                                   value="#{msg['change.error']}"/>
 
                 </div>
-            </h:form>
+            </form>
 
 
             <h:dataTable value="#{moneyChangeController.result.keySet().toArray()}"

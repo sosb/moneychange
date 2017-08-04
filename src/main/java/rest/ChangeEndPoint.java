@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Map;
 
 @Path("/change")
 public class ChangeEndPoint {
@@ -17,18 +18,22 @@ public class ChangeEndPoint {
     @GET
     @Path("{currency}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStockInfo(@PathParam("currency") String currency){
-        System.out.println(currency);
-        return Response.ok(cs.getActualStateOfData(Currency.values()[0])).build();
+    public Response getStockInfo(@PathParam("currency") int currency){
+        return Response.ok(cs.getActualStateOfData(Currency.values()[currency])).build();
     }
 
     @POST
-    @Path("/i")
+    @Path("/money")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response change(@FormParam("amount") int amount,
                            @FormParam("currency") Currency currency){
 
-        return Response.ok(cs.changeCurrency(currency, amount)).build();
+        Map<Integer, Long> result = cs.changeCurrency(currency, amount);
+
+        if(result.size() == 0){
+            return Response.status(500).build();
+        }
+        return Response.status(200).entity(result).build();
     }
 }
