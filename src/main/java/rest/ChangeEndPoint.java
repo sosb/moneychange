@@ -19,7 +19,11 @@ public class ChangeEndPoint {
     @Path("{currency}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStockInfo(@PathParam("currency") int currency){
-        return Response.ok(cs.getActualStateOfData(Currency.values()[currency])).build();
+        Currency selectedCurrency = Currency.values()[currency];
+        if(selectedCurrency == null){
+            return Response.status(500).build();
+        }
+        return Response.ok(cs.getActualStateOfData(selectedCurrency)).build();
     }
 
     @POST
