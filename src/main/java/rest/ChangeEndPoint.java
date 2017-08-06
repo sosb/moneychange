@@ -18,13 +18,10 @@ public class ChangeEndPoint {
     private CurrencyService cs;
 
     @GET
-    @Path("{currency}")
+    @Path("{currency}")//http://localhost:8080/service/rest/change/HUF_AFTER2008
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getStockInfo(@PathParam("currency") int ordinalOfTheCurrency){
-        Currency selectedCurrency = Currency.values()[ordinalOfTheCurrency];
-        if(selectedCurrency == null){
-            return Response.status(500).build();
-        }
+    public Response getStockInfo(@PathParam("currency") String ordinalOfTheCurrency){
+        Currency selectedCurrency = Currency.valueOf(ordinalOfTheCurrency);
         List<Denomination> stockInfo = cs.getActualStateOfData(selectedCurrency);
         if(stockInfo == null || stockInfo.size() == 0){
             return Response.status(500).build();
