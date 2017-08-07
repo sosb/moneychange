@@ -1,0 +1,43 @@
+#Tesztelési terv
+
+# 1.Fejlesztõi teszt
+
+#A fejlesztõi tesztelés célja a rendszer alapvetõ funkcióinak ellenõrzése, a hibakezelés és az alapvetõ funkciók mûködésének vizsgálata. 
+
+# 2.Prototípus (modul) teszt (Junit)
+
+#A prototípustesztelés (vagy másik nevén modultesztelés) célja a rendszer már mûködõ moduljainak önálló tesztelése, 
+#a modulon belüli hibák azonosításának és kiküszöbölésének érdekében.
+
+# 3.Integrációs teszt (Arquillian)
+
+#Az integrációs teszt célja a rendszer más rendszerekhez történõ illesztésének vizsgálata, 
+#a több rendszereken keresztül átívelõ funkciók tesztelésének érdekében.
+# Az adatmigrációs tesztelés az integrációs teszteléshez tartozik,
+# ennek lényege, hogy a bevezetendõ rendszerbe áttöltik azokat az adatokat, 
+#amelyekkel a rendszer dolgozni fog és letesztelik a betöltött adatok, illetve az adatokat kezelõ funkciók helyességét. 
+
+# 4.Elfogadási teszt
+
+#Az elfogadási teszt (angolul User Acceptance Test) célja a rendszer teljes funkcionalitásának vizsgálata a felhasználók szemszögébõl.
+
+# 5.Terheléses teszt
+
+#A terheléses teszt célja a tervezett kapacitások, valamint a rendelkezésre álló növekedési potenciál meghatározása.
+ 
+# 6.Biztonsági teszt (audit)
+
+#Biztonsági tesztelésre akkor van szükség, ha a rendszer szenzitív (pl. személyes vagy pénzügyi) adatokat kezel, 
+#vagy szabadon elérhetõ az internetrõl. 
+
+# 7.Go live teszt
+
+#A go-live teszt egy próbaélesítés, melynek során a korábbi rendszerek továbbra is üzemelnek annak érdekében, 
+#hogy az élesítéskor keletkezõ problémák ne befolyásolják a normál üzemi mûködést. 
+
+# 8.Tesztelési feladatok, teszt-esetek leírása
+
+# DB: létrejött? helyesen tárolja az adatokat? lekérdezés megfelel? eredményt ad vissza?
+# Service: jól végzi a metódus a felváltást? megfelel? típusú az output? inject m?ködik?
+# COntroller: event elkapásra kerül-e?
+
