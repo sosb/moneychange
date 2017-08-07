@@ -33,11 +33,11 @@
 # 7.Go live teszt
 
 #A go-live teszt egy próbaélesítés, melynek során a korábbi rendszerek továbbra is üzemelnek annak érdekében, 
-#hogy az élesítéskor keletkezõ problémák ne befolyásolják a normál üzemi mûködést. 
+#hogy az élesítéskor keletkezõ problémák ne befolyásolják a normál üzemi mûködést.
 
 # 8.Tesztelési feladatok, teszt-esetek leírása
 
 # DB: létrejött? helyesen tárolja az adatokat? lekérdezés megfelel? eredményt ad vissza?
 # Service: jól végzi a metódus a felváltást? megfelel? típusú az output? inject m?ködik?
-# COntroller: event elkapásra kerül-e?
+# Controller: event elkapásra kerül-e?
 
