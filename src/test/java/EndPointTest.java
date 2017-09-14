@@ -18,7 +18,7 @@ public class EndPointTest extends Arquillian {
 
 	private static final String CURRENCY_HUF_AFTER_2008 = "HUF_AFTER2008";
 
-	@Deployment
+	@Deployment(testable = false)
 	public static WebArchive createDeployment() {
 		return ShrinkWrap.create(WebArchive.class)
 				.addPackage(ChangeEndPoint.class.getPackage())
@@ -33,7 +33,6 @@ public class EndPointTest extends Arquillian {
 	private URL appUrl;
 
 	@Test
-	@RunAsClient
 	public void testGetMethod() {
 		given()
 				.log().all()
@@ -45,7 +44,6 @@ public class EndPointTest extends Arquillian {
 	}
 
 	@Test
-	@RunAsClient
 	public void testPostMethod() {
 		given()
 				.log().all()
