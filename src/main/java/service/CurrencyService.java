@@ -45,7 +45,6 @@ public class CurrencyService {
 		return changes;
 	}
 
-
 	private Map<Integer, Long> mappingDenominationQuantities(Currency currency) {
 		return cr.getAllDenomination(currency).stream()
 				.collect(Collectors.toMap(Denomination::getDenominationValue, Denomination::getQuantity));
