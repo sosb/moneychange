@@ -13,6 +13,7 @@ import service.CurrencyService;
 import javax.inject.Inject;
 import java.util.List;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -59,5 +60,6 @@ public class RepositoryTest extends Arquillian {
 		Denomination denomination2 = denominations2.get(0);
 		Long denominationQuantity2 = denomination2.getQuantity();
 		assertNotEquals(denominationQuantity, denominationQuantity2);
+		assertEquals(Long.valueOf(denominationQuantity - 1), denominationQuantity2);
 	}
 }
