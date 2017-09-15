@@ -14,7 +14,6 @@ public class CurrencyRepository {
 	@PersistenceContext(unitName = "moneyChange")
 	private EntityManager em;
 
-
 	public List<Denomination> getAllDenomination(Currency currency) {
 		TypedQuery<Denomination> query = em.createQuery("SELECT d " +
 				"FROM Denomination d " +

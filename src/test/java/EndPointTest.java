@@ -1,7 +1,6 @@
 import controller.MoneyChangeController;
 import model.CurrencyRepository;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.testng.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -52,5 +51,26 @@ public class EndPointTest extends Arquillian {
 				.then()
 				.log().all()
 				.assertThat().statusCode(200);
+	}
+
+	@Test
+	public void testGetMethodFailure() {
+		given()
+				.log().all()
+				.get(appUrl + "rest/change/HUF")
+				.then()
+				.assertThat().statusCode(500)
+				.assertThat().contentType("text/html");
+
+	}
+
+	@Test
+	public void testPostMethodFailure() {
+		given()
+				.log().all()
+				.formParam("amount", 150_000).formParam("currency", CURRENCY_HUF_AFTER_2008)
+				.post(appUrl + "rest/change/money")
+				.then()
+				.assertThat().statusCode(500);
 	}
 }

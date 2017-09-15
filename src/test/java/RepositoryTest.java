@@ -1,5 +1,3 @@
-
-
 import controller.MoneyChangeController;
 import model.CurrencyRepository;
 import model.Denomination;
@@ -15,6 +13,7 @@ import service.CurrencyService;
 import javax.inject.Inject;
 import java.util.List;
 
+import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertTrue;
 
 public class RepositoryTest extends Arquillian {
@@ -33,12 +32,32 @@ public class RepositoryTest extends Arquillian {
 	private CurrencyRepository repository;
 
 	@Test
-	public void getAllDenomination() {
+	public void testGetAllDenomination() {
+		List<Denomination> denominations = repository.getAllDenomination(Currency.HUF_AFTER2008);
+		assertTrue(denominations.size() > 0);
+	}
+
+	@Test
+	public void testAllDenominationMustHaveSameCurrency() {
 		List<Denomination> denominations = repository.getAllDenomination(Currency.HUF_AFTER2008);
 
 		boolean allMatch = denominations.stream()
 				.allMatch(d -> d.getCurrency() == Currency.HUF_AFTER2008);
 
 		assertTrue(allMatch);
+	}
+
+	@Test
+	public void testUpdatedenominationQuantity() {
+		List<Denomination> denominations = repository.getAllDenomination(Currency.HUF_AFTER2008);
+		Denomination denomination = denominations.get(0);
+		Long denominationQuantity = denomination.getQuantity();
+
+		repository.updateDenominationQuantity(denomination.getDenominationValue(), denomination.getCurrency());
+
+		List<Denomination> denominations2 = repository.getAllDenomination(Currency.HUF_AFTER2008);
+		Denomination denomination2 = denominations2.get(0);
+		Long denominationQuantity2 = denomination2.getQuantity();
+		assertNotEquals(denominationQuantity, denominationQuantity2);
 	}
 }
